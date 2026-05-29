@@ -1,9 +1,11 @@
 "use client"
 
 import { useTheme } from "next-themes"
+import { useRouter } from "next/navigation"
 import { Sun, Moon } from "lucide-react"
 import { type TradeType } from "@/lib/mock-data"
 import { cn } from "@/lib/utils"
+import { authClient } from "@/lib/auth-client"
 import {
   Tooltip,
   TooltipContent,
@@ -55,6 +57,14 @@ const TYPES: (TradeType | "ALL")[] = ["ALL", "BUY", "SELL", "CALL", "PUT"]
 
 export function TopBar({ typeFilter, onTypeFilterChange }: Props) {
   const { resolvedTheme, setTheme } = useTheme()
+  const router = useRouter()
+  const { data: session } = authClient.useSession()
+
+  async function handleSignOut() {
+    await authClient.signOut()
+    router.push("/sign-in")
+    router.refresh()
+  }
 
   return (
     <header className="h-16 border-b border-border bg-background flex items-center px-5 gap-6 shrink-0">
@@ -125,6 +135,20 @@ export function TopBar({ typeFilter, onTypeFilterChange }: Props) {
           <span className="text-foreground/40">UPD</span>{" "}
           29 May 2026 11:42 UTC
         </span>
+        {session?.user && (
+          <>
+            <span className="text-foreground/15">|</span>
+            <span className="text-muted-foreground/70 max-w-[160px] truncate">
+              {session.user.email}
+            </span>
+            <button
+              onClick={handleSignOut}
+              className="px-2 py-0.5 font-mono text-[10px] tracking-wider border border-border text-muted-foreground hover:border-muted-foreground hover:text-foreground transition-colors duration-100 uppercase"
+            >
+              Exit
+            </button>
+          </>
+        )}
       </div>
     </header>
   )
