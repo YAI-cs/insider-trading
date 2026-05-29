@@ -136,6 +136,54 @@ export function formatNotional(n: number): string {
   return `$${n}`
 }
 
+export type InsiderNewsItem = {
+  id: string
+  insiderId: string
+  date: string
+  headline: string
+  source: string
+  category: 'trade' | 'political' | 'market' | 'regulatory'
+}
+
+export const insiderNews: InsiderNewsItem[] = [
+  // Trump
+  { id: 'tn1', insiderId: 'trump', date: '2025-02-14', headline: 'Trump discloses PUT option on DJT, first bearish disclosure since taking office', source: 'EDGAR Form 4', category: 'trade' },
+  { id: 'tn2', insiderId: 'trump', date: '2025-01-25', headline: 'Trump acquires $2.1M in DJT shares days after inauguration', source: 'EDGAR Form 4', category: 'trade' },
+  { id: 'tn3', insiderId: 'trump', date: '2025-01-20', headline: 'Trump inaugurated as 47th President, launches DOGE advisory board', source: 'White House', category: 'political' },
+  { id: 'tn4', insiderId: 'trump', date: '2024-11-18', headline: 'Post-election sell: Trump discloses $3.2M DJT liquidation', source: 'EDGAR Form 4', category: 'trade' },
+  { id: 'tn5', insiderId: 'trump', date: '2024-11-05', headline: 'Trump wins 2024 presidential election, DJT shares surge 30%', source: 'Associated Press', category: 'political' },
+  { id: 'tn6', insiderId: 'trump', date: '2024-09-08', headline: 'DJT rebounds to $19; Trump accumulates shares amid campaign polling gains', source: 'EDGAR Form 4', category: 'trade' },
+  { id: 'tn7', insiderId: 'trump', date: '2024-06-27', headline: 'Trump discloses CALL position in DJT — 12-day lag flags potential STOCK Act concern', source: 'Citizens for Responsibility', category: 'regulatory' },
+  { id: 'tn8', insiderId: 'trump', date: '2024-03-14', headline: 'Truth Social merger officially closed; DJT begins trading on NASDAQ', source: 'Reuters', category: 'market' },
+  // Pelosi
+  { id: 'pn1', insiderId: 'pelosi', date: '2025-05-03', headline: 'Pelosi discloses $2.2M MSFT CALL options; Microsoft AI deal with DOD pending vote', source: 'EDGAR Form 4', category: 'trade' },
+  { id: 'pn2', insiderId: 'pelosi', date: '2025-03-04', headline: 'Pelosi discloses NVDA CALL with 22-day lag — 53% gain since purchase', source: 'EDGAR Form 4', category: 'trade' },
+  { id: 'pn3', insiderId: 'pelosi', date: '2025-02-26', headline: 'NVIDIA Q4 earnings beat sends shares up 10%; Pelosi CALL position up 53%', source: 'Bloomberg', category: 'market' },
+  { id: 'pn4', insiderId: 'pelosi', date: '2024-12-04', headline: 'Pelosi AAPL sell disclosed 32 days late; watchdog files STOCK Act complaint', source: 'POGO', category: 'regulatory' },
+  { id: 'pn5', insiderId: 'pelosi', date: '2024-09-05', headline: 'Pelosi discloses GOOGL CALL bought in August before DOJ antitrust ruling', source: 'EDGAR Form 4', category: 'trade' },
+  { id: 'pn6', insiderId: 'pelosi', date: '2024-06-10', headline: 'Apple reveals AI integrations at WWDC; AAPL surges 8%', source: 'The Verge', category: 'market' },
+  { id: 'pn7', insiderId: 'pelosi', date: '2024-02-22', headline: 'Pelosi NVDA CALL disclosed 45 days after purchase — regulators take note', source: 'Unusual Whales', category: 'regulatory' },
+  { id: 'pn8', insiderId: 'pelosi', date: '2024-01-08', headline: 'Pelosi buys $4.2M in NVDA CALLs as AI chip bill heads to committee', source: 'EDGAR Form 4', category: 'trade' },
+  // Musk
+  { id: 'mn1', insiderId: 'musk', date: '2025-05-15', headline: 'Musk discloses $9.4M TSLA buy after stock hits 6-month low', source: 'EDGAR Form 4', category: 'trade' },
+  { id: 'mn2', insiderId: 'musk', date: '2025-03-09', headline: 'Musk sells $15.2M TSLA one day after DOGE federal spending cuts announcement', source: 'EDGAR Form 4', category: 'trade' },
+  { id: 'mn3', insiderId: 'musk', date: '2025-03-08', headline: 'DOGE announces sweeping federal contractor cuts; TSLA contract exposure questioned', source: 'Washington Post', category: 'political' },
+  { id: 'mn4', insiderId: 'musk', date: '2025-01-29', headline: 'TSLA Q4 beat: EPS $0.73 vs $0.60 est; deliveries record high', source: 'Tesla IR', category: 'market' },
+  { id: 'mn5', insiderId: 'musk', date: '2025-01-17', headline: 'Musk discloses $6.8M TSLA purchase ahead of DOGE announcement', source: 'EDGAR Form 4', category: 'trade' },
+  { id: 'mn6', insiderId: 'musk', date: '2024-08-06', headline: 'Musk sells $18.2M in TSLA amid global market selloff', source: 'EDGAR Form 4', category: 'trade' },
+  { id: 'mn7', insiderId: 'musk', date: '2024-04-24', headline: 'Musk buys $12.1M TSLA after stock drops 35% YTD on delivery miss concerns', source: 'EDGAR Form 4', category: 'trade' },
+  { id: 'mn8', insiderId: 'musk', date: '2024-02-20', headline: 'TSLA Q4 2023 earnings miss — EPS $0.71 vs $0.74 est; Musk sells $8.5M', source: 'EDGAR Form 4', category: 'trade' },
+  // RFK
+  { id: 'rn1', insiderId: 'rfk', date: '2025-05-08', headline: 'RFK discloses $680K MRNA buy — weeks after FDA restructuring memo leaked', source: 'EDGAR Form 4', category: 'trade' },
+  { id: 'rn2', insiderId: 'rfk', date: '2025-05-01', headline: 'HHS announces FDA restructuring under RFK; vaccine division reorganized', source: 'HHS Press Release', category: 'political' },
+  { id: 'rn3', insiderId: 'rfk', date: '2025-04-24', headline: 'RFK sells $2.1M UNH weeks before DOJ fraud probe surfaces publicly', source: 'EDGAR Form 4', category: 'trade' },
+  { id: 'rn4', insiderId: 'rfk', date: '2025-04-15', headline: 'DOJ opens UnitedHealth fraud probe; UNH drops 12% in one session', source: 'Wall Street Journal', category: 'regulatory' },
+  { id: 'rn5', insiderId: 'rfk', date: '2025-04-03', headline: 'RFK discloses XBI CALL amid leaked biotech deregulation briefing at HHS', source: 'EDGAR Form 4', category: 'trade' },
+  { id: 'rn6', insiderId: 'rfk', date: '2025-02-26', headline: 'RFK discloses XLV sell 18 days after trade — coincides with HHS budget cuts', source: 'EDGAR Form 4', category: 'trade' },
+  { id: 'rn7', insiderId: 'rfk', date: '2025-02-05', headline: 'Senate confirms RFK Jr. as Secretary of Health and Human Services 52–48', source: 'C-SPAN', category: 'political' },
+  { id: 'rn8', insiderId: 'rfk', date: '2025-02-08', headline: 'RFK sells health care ETF XLV days after being confirmed at HHS — ethics questions raised', source: 'ProPublica', category: 'regulatory' },
+]
+
 export function formatDate(iso: string): string {
   const d = new Date(iso)
   return d.toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' })

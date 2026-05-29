@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { type Insider, type Trade, INSIDER_COLORS, formatDate } from "@/lib/mock-data"
 import { cn } from "@/lib/utils"
 
@@ -41,16 +42,20 @@ export function InsiderLeaderboard({ insiders, trades, selectedInsiderId, onSele
             .sort((a, b) => b.date.localeCompare(a.date))[0]
 
           return (
-            <button
+            <div
               key={insider.id}
+              role="button"
+              tabIndex={0}
               onClick={() => onSelect(isSelected ? null : insider.id)}
+              onKeyDown={(e) => e.key === "Enter" && onSelect(isSelected ? null : insider.id)}
               className={cn(
-                "w-full text-left px-4 py-3.5 border-b border-border transition-colors duration-100",
-                "hover:bg-accent focus-visible:outline-none focus-visible:bg-accent",
+                "group w-full text-left px-4 py-3.5 border-b border-border transition-colors duration-100",
+                "hover:bg-accent focus-visible:outline-none focus-visible:bg-accent cursor-pointer",
                 isSelected && "bg-primary/8",
                 isDimmed && "opacity-40"
               )}
             >
+              {/* Top row: name/title + edge */}
               <div className="flex items-start justify-between gap-2">
                 <div className="flex items-start gap-3 min-w-0">
                   <div className="flex flex-col items-center gap-1.5 pt-0.5 shrink-0">
@@ -81,19 +86,6 @@ export function InsiderLeaderboard({ insiders, trades, selectedInsiderId, onSele
                     <div className="font-mono text-[10px] text-muted-foreground mt-0.5 truncate">
                       {insider.title}
                     </div>
-                    <div className="flex items-center gap-2 mt-2">
-                      <span className="font-mono text-[10px] text-muted-foreground/60">
-                        {insiderTrades.length} trades
-                      </span>
-                      {lastTrade && (
-                        <>
-                          <span className="text-muted-foreground/30 text-[9px]">·</span>
-                          <span className="font-mono text-[10px] text-muted-foreground/60">
-                            Last {formatDate(lastTrade.date)}
-                          </span>
-                        </>
-                      )}
-                    </div>
                   </div>
                 </div>
 
@@ -112,7 +104,36 @@ export function InsiderLeaderboard({ insiders, trades, selectedInsiderId, onSele
                   </div>
                 </div>
               </div>
-            </button>
+
+              {/* Bottom row: full-width, trades/date on left, profile link on right */}
+              <div className="flex items-center justify-between mt-2 pl-7">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-[10px] text-muted-foreground/60">
+                    {insiderTrades.length} trades
+                  </span>
+                  {lastTrade && (
+                    <>
+                      <span className="text-muted-foreground/30 text-[9px]">·</span>
+                      <span className="font-mono text-[10px] text-muted-foreground/60">
+                        Last {formatDate(lastTrade.date)}
+                      </span>
+                    </>
+                  )}
+                </div>
+                <Link
+                  href={`/insiders/${insider.id}`}
+                  className={cn(
+                    "font-mono text-[9px] uppercase tracking-wide shrink-0",
+                    "px-2 py-0.5 border border-border/60 text-muted-foreground/50",
+                    "opacity-0 group-hover:opacity-100 transition-opacity duration-100",
+                    "hover:text-primary hover:border-primary/40"
+                  )}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  Profile →
+                </Link>
+              </div>
+            </div>
           )
         })}
       </div>

@@ -34,11 +34,11 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4">
+    <main className="min-h-screen bg-background flex flex-col items-center justify-center px-4">
       <div className="mb-10 text-center">
-        <div className="font-mono text-base font-bold tracking-[0.14em] text-primary uppercase select-none">
+        <h1 className="font-mono text-base font-bold tracking-[0.14em] text-primary uppercase select-none">
           Insider Insights
-        </div>
+        </h1>
         <div className="mt-1.5 font-mono text-[10px] tracking-[0.22em] text-muted-foreground uppercase">
           Trade Intelligence Terminal
         </div>
@@ -123,6 +123,6 @@ export default function SignInPage() {
       <div className="mt-8 font-mono text-[10px] text-muted-foreground/30 tracking-[0.18em] uppercase">
         SEC Edgar (Form 4) · Stock Act
       </div>
-    </div>
+    </main>
   )
 }

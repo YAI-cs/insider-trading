@@ -43,7 +43,7 @@ export function Dashboard() {
       <TopBar typeFilter={typeFilter} onTypeFilterChange={setTypeFilter} />
 
       {/* Main body: sidebar + content */}
-      <div className="flex flex-1 overflow-hidden min-h-0">
+      <main className="flex flex-1 overflow-hidden min-h-0">
         {/* Left sidebar */}
         <div
           className="border-r border-border shrink-0 overflow-hidden"
@@ -77,7 +77,7 @@ export function Dashboard() {
             />
           </div>
         </div>
-      </div>
+      </main>
 
       <footer className="h-7 border-t border-border bg-background flex items-center px-4 shrink-0">
         <div className="flex items-center gap-4 font-mono text-[9px] text-muted-foreground/35 tracking-wide w-full">

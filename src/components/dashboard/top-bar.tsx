@@ -69,9 +69,9 @@ export function TopBar({ typeFilter, onTypeFilterChange }: Props) {
   return (
     <header className="h-16 border-b border-border bg-background flex items-center px-5 gap-6 shrink-0">
       <div className="flex items-center gap-3">
-        <span className="font-mono text-base font-bold tracking-[0.14em] text-primary uppercase select-none whitespace-nowrap">
+        <h1 className="font-mono text-base font-bold tracking-[0.14em] text-primary uppercase select-none whitespace-nowrap">
           Insider Insights
-        </span>
+        </h1>
       </div>
 
       <div className="h-4 w-px bg-border" />
