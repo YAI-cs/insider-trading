@@ -25,7 +25,7 @@ export function InsiderLeaderboard({ insiders, trades, selectedInsiderId, onSele
         <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
           Insiders
         </span>
-        <span className="font-mono text-[10px] text-muted-foreground/50">
+        <span className="font-mono text-[10px] text-muted-foreground">
           {insiders.length} tracked
         </span>
       </div>
@@ -44,94 +44,100 @@ export function InsiderLeaderboard({ insiders, trades, selectedInsiderId, onSele
           return (
             <div
               key={insider.id}
-              role="button"
-              tabIndex={0}
-              onClick={() => onSelect(isSelected ? null : insider.id)}
-              onKeyDown={(e) => e.key === "Enter" && onSelect(isSelected ? null : insider.id)}
               className={cn(
-                "group w-full text-left px-4 py-3.5 border-b border-border transition-colors duration-100",
-                "hover:bg-accent focus-visible:outline-none focus-visible:bg-accent cursor-pointer",
+                "group relative border-b border-border transition-colors duration-100",
                 isSelected && "bg-primary/8",
                 isDimmed && "opacity-40"
               )}
             >
-              {/* Top row: name/title + edge */}
-              <div className="flex items-start justify-between gap-2">
-                <div className="flex items-start gap-3 min-w-0">
-                  <div className="flex flex-col items-center gap-1.5 pt-0.5 shrink-0">
-                    <span className="font-mono text-xs font-bold text-muted-foreground/50 w-4 text-center">
-                      {i + 1}
-                    </span>
-                    <span
-                      className="w-1.5 h-1.5 rounded-full shrink-0"
-                      style={{ backgroundColor: color }}
-                    />
-                  </div>
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1.5">
-                      <span
-                        className={cn(
-                          "font-mono text-[13px] font-semibold leading-tight truncate",
-                          isSelected ? "text-primary" : "text-foreground"
-                        )}
-                      >
-                        {insider.name}
+              {/* Full-card selection button sits behind content — no interactive children */}
+              <button
+                aria-pressed={isSelected}
+                aria-label={`${isSelected ? "Deselect" : "Select"} ${insider.name}`}
+                onClick={() => onSelect(isSelected ? null : insider.id)}
+                className="absolute inset-0 w-full hover:bg-accent focus-visible:outline-none focus-visible:bg-accent"
+              />
+
+              {/* Card content — pointer-events-none so the button above receives clicks */}
+              <div className="relative pointer-events-none px-4 py-3.5">
+                {/* Top row: name/title + edge */}
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-start gap-3 min-w-0">
+                    <div className="flex flex-col items-center gap-1.5 pt-0.5 shrink-0">
+                      <span className="font-mono text-xs font-bold text-muted-foreground/70 w-4 text-center">
+                        {i + 1}
                       </span>
-                      {party && (
-                        <span className="font-mono text-[9px] uppercase tracking-wider text-muted-foreground/60 shrink-0">
-                          {party}
-                        </span>
-                      )}
+                      <span
+                        className="w-1.5 h-1.5 rounded-full shrink-0"
+                        style={{ backgroundColor: color }}
+                      />
                     </div>
-                    <div className="font-mono text-[10px] text-muted-foreground mt-0.5 truncate">
-                      {insider.title}
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <span
+                          className={cn(
+                            "font-mono text-[13px] font-semibold leading-tight truncate",
+                            isSelected ? "text-primary" : "text-foreground"
+                          )}
+                        >
+                          {insider.name}
+                        </span>
+                        {party && (
+                          <span className="font-mono text-[9px] uppercase tracking-wider text-muted-foreground shrink-0">
+                            {party}
+                          </span>
+                        )}
+                      </div>
+                      <div className="font-mono text-[10px] text-muted-foreground mt-0.5 truncate">
+                        {insider.title}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="shrink-0 text-right">
+                    <div
+                      className={cn(
+                        "font-mono text-sm font-bold tabular-nums",
+                        insider.estimatedEdge >= 0 ? "text-chart-1" : "text-chart-2"
+                      )}
+                    >
+                      {insider.estimatedEdge >= 0 ? "+" : ""}
+                      {insider.estimatedEdge.toFixed(1)}%
+                    </div>
+                    <div className="font-mono text-[9px] text-muted-foreground/80 mt-0.5 uppercase tracking-wide">
+                      avg edge
                     </div>
                   </div>
                 </div>
 
-                <div className="shrink-0 text-right">
-                  <div
+                {/* Bottom row: full-width, trades/date on left, profile link on right */}
+                <div className="flex items-center justify-between mt-2 pl-7">
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-[10px] text-muted-foreground">
+                      {insiderTrades.length} trades
+                    </span>
+                    {lastTrade && (
+                      <>
+                        <span className="text-muted-foreground/50 text-[9px]">·</span>
+                        <span className="font-mono text-[10px] text-muted-foreground">
+                          Last {formatDate(lastTrade.date)}
+                        </span>
+                      </>
+                    )}
+                  </div>
+                  {/* pointer-events-auto re-enables click on the link only */}
+                  <Link
+                    href={`/insiders/${insider.id}`}
                     className={cn(
-                      "font-mono text-sm font-bold tabular-nums",
-                      insider.estimatedEdge >= 0 ? "text-chart-1" : "text-chart-2"
+                      "pointer-events-auto font-mono text-[9px] uppercase tracking-wide shrink-0",
+                      "px-2 py-0.5 border border-border text-muted-foreground",
+                      "opacity-0 group-hover:opacity-100 transition-opacity duration-100",
+                      "hover:text-primary hover:border-primary/60"
                     )}
                   >
-                    {insider.estimatedEdge >= 0 ? "+" : ""}
-                    {insider.estimatedEdge.toFixed(1)}%
-                  </div>
-                  <div className="font-mono text-[9px] text-muted-foreground/50 mt-0.5 uppercase tracking-wide">
-                    avg edge
-                  </div>
+                    Profile →
+                  </Link>
                 </div>
-              </div>
-
-              {/* Bottom row: full-width, trades/date on left, profile link on right */}
-              <div className="flex items-center justify-between mt-2 pl-7">
-                <div className="flex items-center gap-2">
-                  <span className="font-mono text-[10px] text-muted-foreground/60">
-                    {insiderTrades.length} trades
-                  </span>
-                  {lastTrade && (
-                    <>
-                      <span className="text-muted-foreground/30 text-[9px]">·</span>
-                      <span className="font-mono text-[10px] text-muted-foreground/60">
-                        Last {formatDate(lastTrade.date)}
-                      </span>
-                    </>
-                  )}
-                </div>
-                <Link
-                  href={`/insiders/${insider.id}`}
-                  className={cn(
-                    "font-mono text-[9px] uppercase tracking-wide shrink-0",
-                    "px-2 py-0.5 border border-border/60 text-muted-foreground/50",
-                    "opacity-0 group-hover:opacity-100 transition-opacity duration-100",
-                    "hover:text-primary hover:border-primary/40"
-                  )}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  Profile →
-                </Link>
               </div>
             </div>
           )
@@ -139,7 +145,7 @@ export function InsiderLeaderboard({ insiders, trades, selectedInsiderId, onSele
       </div>
 
       <div className="px-4 py-2 border-t border-border">
-        <p className="font-mono text-[9px] text-muted-foreground/40 leading-relaxed">
+        <p className="font-mono text-[9px] text-muted-foreground/70 leading-relaxed">
           Edge = avg stock delta since disclosure date across all disclosed trades. Not investment advice.
         </p>
       </div>

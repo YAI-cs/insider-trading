@@ -127,12 +127,12 @@ export function TopBar({ typeFilter, onTypeFilterChange }: Props) {
         </button>
         <span className="text-foreground/15">|</span>
         <span>
-          <span className="text-foreground/40">SRC</span>{" "}
+          <span className="text-muted-foreground">SRC</span>{" "}
           SEC EDGAR (Form 4) · STOCK Act
         </span>
         <span className="text-foreground/25">|</span>
         <span>
-          <span className="text-foreground/40">UPD</span>{" "}
+          <span className="text-muted-foreground">UPD</span>{" "}
           29 May 2026 11:42 UTC
         </span>
         {session?.user && (

@@ -109,17 +109,15 @@ export function TradeTable({
         <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
           Disclosures
         </span>
-        <span className="font-mono text-[10px] text-muted-foreground/50">
+        <span className="font-mono text-[10px] text-muted-foreground">
           {sorted.length} records
           {selectedInsiderId && (
-            <span className="text-primary ml-2">
-              filtered
-            </span>
+            <span className="text-primary ml-2">filtered</span>
           )}
         </span>
       </div>
 
-      <div className="flex-1 overflow-y-auto overflow-x-auto">
+      <div className="flex-1 overflow-y-auto overflow-x-auto" tabIndex={0}>
         <table className="w-full min-w-[800px] border-collapse">
           <thead className="sticky top-0 z-10 bg-background">
             <tr className="border-b border-border">
@@ -127,8 +125,8 @@ export function TradeTable({
                 <th
                   key={col.key}
                   className={cn(
-                    "px-3 py-2 font-mono text-[9px] uppercase tracking-[0.12em] text-muted-foreground/60 cursor-pointer select-none whitespace-nowrap",
-                    "hover:text-muted-foreground transition-colors duration-100",
+                    "px-3 py-2 font-mono text-[9px] uppercase tracking-[0.12em] text-muted-foreground cursor-pointer select-none whitespace-nowrap",
+                    "hover:text-foreground transition-colors duration-100",
                     col.align === "right" ? "text-right" : "text-left"
                   )}
                   onClick={() => onSort(col.key)}

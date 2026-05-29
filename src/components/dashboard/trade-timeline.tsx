@@ -83,7 +83,7 @@ export function TradeTimeline({ trades, events, insiders, selectedInsiderId }: P
         <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
           Trade vs. Stock Delta — Timeline
         </span>
-        <div className="flex items-center gap-3 font-mono text-[9px] text-muted-foreground/40">
+        <div className="flex items-center gap-3 font-mono text-[9px] text-muted-foreground/70">
           <span>▲ BUY</span>
           <span>▽ SELL</span>
           <span>◆ CALL</span>
@@ -98,7 +98,7 @@ export function TradeTimeline({ trades, events, insiders, selectedInsiderId }: P
           {Y_TICKS.map((pct) => (
             <div
               key={pct}
-              className="absolute right-1.5 -translate-y-1/2 font-mono text-[9px] text-muted-foreground/35 tabular-nums leading-none"
+              className="absolute right-1.5 -translate-y-1/2 font-mono text-[9px] text-muted-foreground/70 tabular-nums leading-none"
               style={{ bottom: `${yPct(pct)}%` }}
             >
               {pct === 0 ? "0" : `${pct}`}
@@ -106,7 +106,7 @@ export function TradeTimeline({ trades, events, insiders, selectedInsiderId }: P
           ))}
           {/* Y axis label */}
           <div
-            className="absolute font-mono text-[8px] text-muted-foreground/25 tracking-wide"
+            className="absolute font-mono text-[8px] text-muted-foreground/70 tracking-wide"
             style={{
               left: 2,
               top: "50%",
@@ -190,7 +190,7 @@ export function TradeTimeline({ trades, events, insiders, selectedInsiderId }: P
         {X_LABELS.map(({ date, label }) => (
           <div
             key={date}
-            className="absolute top-1 -translate-x-1/2 font-mono text-[9px] text-muted-foreground/35 whitespace-nowrap"
+            className="absolute top-1 -translate-x-1/2 font-mono text-[9px] text-muted-foreground/70 whitespace-nowrap"
             style={{ left: `${xPct(date)}%` }}
           >
             {label}
@@ -264,7 +264,7 @@ function EventStrip({ events }: { events: MarketEvent[] }) {
             <div
               className={cn(
                 "absolute font-mono whitespace-nowrap transition-all duration-150",
-                isH ? "text-primary" : "text-muted-foreground/70"
+                isH ? "text-primary" : "text-muted-foreground/80"
               )}
               style={{
                 top: labelTop,
