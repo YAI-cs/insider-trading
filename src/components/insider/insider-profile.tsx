@@ -180,7 +180,7 @@ export function InsiderProfile({ id }: { id: string }) {
   }
 
   function SortIndicator({ col }: { col: SortKey }) {
-    if (sortKey !== col) return <span className="text-muted-foreground/25 ml-1">↕</span>
+    if (sortKey !== col) return <span className="text-muted-foreground/60 ml-1">↕</span>
     return <span className="text-primary ml-1">{sortDir === "asc" ? "↑" : "↓"}</span>
   }
 
@@ -209,7 +209,7 @@ export function InsiderProfile({ id }: { id: string }) {
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-background text-foreground font-mono">
       {/* Top nav */}
-      <div className="h-10 border-b border-border flex items-center px-4 gap-4 shrink-0">
+      <nav aria-label="Page navigation" className="h-10 border-b border-border flex items-center px-4 gap-4 shrink-0">
         <Link
           href="/"
           className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5"
@@ -217,16 +217,16 @@ export function InsiderProfile({ id }: { id: string }) {
           <span className="text-[11px]">←</span> Dashboard
         </Link>
         <span className="text-border">·</span>
-        <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground/50">
+        <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground/80">
           Insider Insights
         </span>
         <span className="text-border ml-auto">·</span>
-        <span className="font-mono text-[10px] text-muted-foreground/40">Profile</span>
-      </div>
+        <span className="font-mono text-[10px] text-muted-foreground/70">Profile</span>
+      </nav>
 
       <div className="flex-1 overflow-hidden flex flex-col min-h-0">
         {/* Profile hero */}
-        <div className="border-b border-border px-6 py-4 shrink-0">
+        <section aria-label="Profile overview" className="border-b border-border px-6 py-4 shrink-0">
           <div className="flex items-start gap-5">
             {/* Avatar */}
             <div
@@ -256,14 +256,14 @@ export function InsiderProfile({ id }: { id: string }) {
                 <span className="text-border mx-2">·</span>
                 {insider.affiliation}
               </div>
-              <div className="mt-1 font-mono text-[10px] text-muted-foreground/50">
+              <div className="mt-1 font-mono text-[10px] text-muted-foreground/75">
                 Last trade: {formatDate(insider.lastTradeDate)}
               </div>
             </div>
 
             {/* Sparkline */}
             <div className="w-72 shrink-0 hidden lg:block">
-              <div className="font-mono text-[9px] text-muted-foreground/40 uppercase tracking-wide mb-1.5">
+              <div className="font-mono text-[9px] text-muted-foreground/70 uppercase tracking-wide mb-1.5">
                 Trade returns
               </div>
               <TradeSparkline trades={insiderTrades} color={color} />
@@ -279,7 +279,7 @@ export function InsiderProfile({ id }: { id: string }) {
               { label: "Win Rate", value: `${winRate}%`, accent: true, positive: winRate >= 50 },
             ].map(({ label, value, accent, positive }) => (
               <div key={label} className="bg-card border border-border px-3 py-2.5">
-                <div className="font-mono text-[9px] text-muted-foreground/50 uppercase tracking-wide mb-1">
+                <div className="font-mono text-[9px] text-muted-foreground/75 uppercase tracking-wide mb-1">
                   {label}
                 </div>
                 <div
@@ -297,66 +297,66 @@ export function InsiderProfile({ id }: { id: string }) {
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Main two-pane body */}
         <main className="flex-1 flex overflow-hidden min-h-0">
-          {/* Left: news feed + key events */}
+          {/* Left sidebar: trade stats + related events */}
           <div
             className="border-r border-border shrink-0 flex flex-col overflow-hidden"
-            style={{ width: "30%", minWidth: 240, maxWidth: 380 }}
+            style={{ width: "22%", minWidth: 200, maxWidth: 280 }}
           >
-            {/* News feed */}
-            <div className="px-4 py-2.5 border-b border-border flex items-center justify-between shrink-0">
+            {/* Stats */}
+            <div className="px-4 py-2.5 border-b border-border shrink-0">
               <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
-                News Feed
-              </span>
-              <span className="font-mono text-[10px] text-muted-foreground/40">
-                {news.length} items
+                Overview
               </span>
             </div>
-            <div className="flex-1 overflow-y-auto">
-              {news.map((item) => (
-                <div
-                  key={item.id}
-                  className="px-4 py-3 border-b border-border/50 hover:bg-accent/40 transition-colors duration-75"
-                >
-                  <div className="flex items-center gap-1.5 mb-1.5">
-                    <span
-                      className={cn(
-                        "px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider border font-mono",
-                        NEWS_CAT_COLORS[item.category]
-                      )}
-                    >
-                      {NEWS_CAT_LABELS[item.category]}
-                    </span>
-                    <span className="font-mono text-[9px] text-muted-foreground/40">
-                      {formatDate(item.date)}
-                    </span>
-                  </div>
-                  <p className="font-mono text-[11px] text-foreground/85 leading-relaxed">
-                    {item.headline}
-                  </p>
-                  <p className="font-mono text-[9px] text-muted-foreground/40 mt-1">
-                    {item.source}
-                  </p>
+            <div className="px-4 py-4 border-b border-border shrink-0 flex flex-col gap-4">
+              <div>
+                <div className="font-mono text-[9px] text-muted-foreground/70 uppercase tracking-wide mb-1">
+                  Avg Disclosure Lag
                 </div>
-              ))}
+                <div
+                  className={cn(
+                    "font-mono text-lg font-bold tabular-nums",
+                    avgLag > 30 ? "text-chart-2" : avgLag > 10 ? "text-primary" : "text-chart-1"
+                  )}
+                >
+                  {avgLag} days
+                </div>
+              </div>
+              <div>
+                <div className="font-mono text-[9px] text-muted-foreground/70 uppercase tracking-wide mb-1">
+                  Tickers Traded
+                </div>
+                <div className="font-mono text-sm font-bold text-foreground leading-snug">
+                  {[...new Set(insiderTrades.map((t) => t.ticker))].join(", ")}
+                </div>
+              </div>
+              <div>
+                <div className="font-mono text-[9px] text-muted-foreground/70 uppercase tracking-wide mb-1">
+                  Largest Trade
+                </div>
+                <div className="font-mono text-lg font-bold text-foreground">
+                  {formatNotional(Math.max(...insiderTrades.map((t) => t.notional)))}
+                </div>
+              </div>
             </div>
 
-            {/* Key events */}
+            {/* Related events */}
             {relevantEvents.length > 0 && (
               <>
-                <div className="px-4 py-2 border-t border-b border-border shrink-0">
+                <div className="px-4 py-2.5 border-b border-border shrink-0">
                   <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
                     Related Events
                   </span>
                 </div>
-                <div className="shrink-0">
+                <div className="flex-1 overflow-y-auto" tabIndex={0}>
                   {relevantEvents.map((ev) => (
                     <div
                       key={ev.date + ev.label}
-                      className="px-4 py-2 border-b border-border/40 flex items-start gap-2"
+                      className="px-4 py-2.5 border-b border-border/40 flex items-start gap-2"
                     >
                       <span
                         className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0"
@@ -366,7 +366,7 @@ export function InsiderProfile({ id }: { id: string }) {
                         <p className="font-mono text-[10px] text-foreground/70 leading-snug">
                           {ev.label}
                         </p>
-                        <p className="font-mono text-[9px] text-muted-foreground/40 mt-0.5">
+                        <p className="font-mono text-[9px] text-muted-foreground/70 mt-0.5">
                           {formatDate(ev.date)}
                         </p>
                       </div>
@@ -377,128 +377,135 @@ export function InsiderProfile({ id }: { id: string }) {
             )}
           </div>
 
-          {/* Right: trade history table */}
-          <section className="flex-1 flex flex-col overflow-hidden min-w-0">
-            <div className="px-4 py-2.5 border-b border-border flex items-center justify-between shrink-0">
-              <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
-                Trade History
-              </span>
-              <span className="font-mono text-[10px] text-muted-foreground/40">
-                {sortedTrades.length} disclosures
-              </span>
-            </div>
-
-            <div className="flex-1 overflow-auto">
-              <table className="w-full min-w-[640px] border-collapse">
-                <thead className="sticky top-0 z-10 bg-background">
-                  <tr className="border-b border-border">
-                    {COLS.map((col) => (
-                      <th
-                        key={col.key}
-                        className={cn(
-                          "px-3 py-2 font-mono text-[9px] uppercase tracking-[0.12em] text-muted-foreground/60 cursor-pointer select-none whitespace-nowrap",
-                          "hover:text-muted-foreground transition-colors duration-100",
-                          col.align === "right" ? "text-right" : "text-left"
-                        )}
-                        onClick={() => handleSort(col.key)}
-                      >
-                        {col.label}
-                        <SortIndicator col={col.key} />
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {sortedTrades.map((trade, idx) => (
-                    <tr
-                      key={trade.id}
-                      className={cn(
-                        "border-b border-border/50 hover:bg-accent/60 transition-colors duration-75",
-                        idx % 2 === 0 ? "bg-background" : "bg-card"
-                      )}
-                    >
-                      <td className="px-3 py-2.5 font-mono text-[11px] tabular-nums text-foreground/70 whitespace-nowrap">
-                        {formatDate(trade.date)}
-                      </td>
-                      <td className="px-3 py-2.5">
-                        <div className="flex items-center gap-1.5">
-                          <span className="font-mono text-[12px] font-bold text-foreground">
-                            {trade.ticker}
-                          </span>
-                          <span className="font-mono text-[10px] text-muted-foreground/50 hidden xl:inline">
-                            {trade.company.split(" ").slice(0, 2).join(" ")}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="px-3 py-2.5">
-                        <TypeBadge type={trade.type} />
-                      </td>
-                      <td className="px-3 py-2.5 font-mono text-[11px] tabular-nums text-right text-foreground/80">
-                        {formatNotional(trade.notional)}
-                      </td>
-                      <td className="px-3 py-2.5 text-right">
-                        <LagBadge lag={trade.disclosureLag} />
-                      </td>
-                      <td className="px-3 py-2.5 font-mono text-[11px] tabular-nums text-right text-foreground/60">
-                        ${trade.priceAtTrade.toFixed(0)}
-                      </td>
-                      <td className="px-3 py-2.5 font-mono text-[11px] tabular-nums text-right text-foreground/80">
-                        ${trade.priceNow.toFixed(0)}
-                      </td>
-                      <td className="px-3 py-2.5 text-right">
-                        <ReturnBadge pct={trade.returnPct} />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-
-              {/* Disclosure lag summary */}
-              <div className="px-4 py-3 border-t border-border mt-auto">
-                <div className="flex items-center gap-6">
-                  <div>
-                    <div className="font-mono text-[9px] text-muted-foreground/40 uppercase tracking-wide mb-0.5">
-                      Avg Disclosure Lag
-                    </div>
-                    <div
-                      className={cn(
-                        "font-mono text-sm font-bold",
-                        avgLag > 30 ? "text-chart-2" : avgLag > 10 ? "text-primary" : "text-chart-1"
-                      )}
-                    >
-                      {avgLag} days
-                    </div>
-                  </div>
-                  <div>
-                    <div className="font-mono text-[9px] text-muted-foreground/40 uppercase tracking-wide mb-0.5">
-                      Tickers
-                    </div>
-                    <div className="font-mono text-sm font-bold text-foreground">
-                      {[...new Set(insiderTrades.map((t) => t.ticker))].join(", ")}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="font-mono text-[9px] text-muted-foreground/40 uppercase tracking-wide mb-0.5">
-                      Largest Trade
-                    </div>
-                    <div className="font-mono text-sm font-bold text-foreground">
-                      {formatNotional(Math.max(...insiderTrades.map((t) => t.notional)))}
-                    </div>
-                  </div>
-                </div>
+          {/* Right: news feed + trade history */}
+          <div className="flex-1 flex flex-col overflow-hidden min-w-0">
+            {/* News feed — prominent */}
+            <section aria-label="News feed" className="flex flex-col border-b border-border" style={{ height: "44%" }}>
+              <div className="px-4 py-2.5 border-b border-border flex items-center justify-between shrink-0">
+                <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+                  News Feed
+                </span>
+                <span className="font-mono text-[10px] text-muted-foreground/70">
+                  {news.length} items
+                </span>
               </div>
-            </div>
-          </section>
+              <div className="flex-1 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 content-start" tabIndex={0}>
+                {news.map((item) => (
+                  <div
+                    key={item.id}
+                    className="px-4 py-3 border-b border-r border-border/50 hover:bg-accent/40 transition-colors duration-75"
+                  >
+                    <div className="flex items-center gap-1.5 mb-1.5">
+                      <span
+                        className={cn(
+                          "px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider border font-mono",
+                          NEWS_CAT_COLORS[item.category]
+                        )}
+                      >
+                        {NEWS_CAT_LABELS[item.category]}
+                      </span>
+                      <span className="font-mono text-[9px] text-muted-foreground/70">
+                        {formatDate(item.date)}
+                      </span>
+                    </div>
+                    <p className="font-mono text-[11px] text-foreground/85 leading-relaxed">
+                      {item.headline}
+                    </p>
+                    <p className="font-mono text-[9px] text-muted-foreground/70 mt-1">
+                      {item.source}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Trade history */}
+            <section aria-label="Trade history" className="flex-1 flex flex-col overflow-hidden min-w-0">
+              <div className="px-4 py-2.5 border-b border-border flex items-center justify-between shrink-0">
+                <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+                  Trade History
+                </span>
+                <span className="font-mono text-[10px] text-muted-foreground/70">
+                  {sortedTrades.length} disclosures
+                </span>
+              </div>
+              <div className="flex-1 overflow-auto" tabIndex={0}>
+                <table className="w-full min-w-[640px] border-collapse">
+                  <thead className="sticky top-0 z-10 bg-background">
+                    <tr className="border-b border-border">
+                      {COLS.map((col) => (
+                        <th
+                          key={col.key}
+                          className={cn(
+                            "px-3 py-2 font-mono text-[9px] uppercase tracking-[0.12em] text-muted-foreground/80 cursor-pointer select-none whitespace-nowrap",
+                            "hover:text-muted-foreground transition-colors duration-100",
+                            col.align === "right" ? "text-right" : "text-left"
+                          )}
+                          onClick={() => handleSort(col.key)}
+                        >
+                          {col.label}
+                          <SortIndicator col={col.key} />
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {sortedTrades.map((trade, idx) => (
+                      <tr
+                        key={trade.id}
+                        className={cn(
+                          "border-b border-border/50 hover:bg-accent/60 transition-colors duration-75",
+                          idx % 2 === 0 ? "bg-background" : "bg-card"
+                        )}
+                      >
+                        <td className="px-3 py-2.5 font-mono text-[11px] tabular-nums text-foreground/70 whitespace-nowrap">
+                          {formatDate(trade.date)}
+                        </td>
+                        <td className="px-3 py-2.5">
+                          <div className="flex items-center gap-1.5">
+                            <span className="font-mono text-[12px] font-bold text-foreground">
+                              {trade.ticker}
+                            </span>
+                            <span className="font-mono text-[10px] text-muted-foreground/75 hidden xl:inline">
+                              {trade.company.split(" ").slice(0, 2).join(" ")}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="px-3 py-2.5">
+                          <TypeBadge type={trade.type} />
+                        </td>
+                        <td className="px-3 py-2.5 font-mono text-[11px] tabular-nums text-right text-foreground/80">
+                          {formatNotional(trade.notional)}
+                        </td>
+                        <td className="px-3 py-2.5 text-right">
+                          <LagBadge lag={trade.disclosureLag} />
+                        </td>
+                        <td className="px-3 py-2.5 font-mono text-[11px] tabular-nums text-right text-foreground/60">
+                          ${trade.priceAtTrade.toFixed(0)}
+                        </td>
+                        <td className="px-3 py-2.5 font-mono text-[11px] tabular-nums text-right text-foreground/80">
+                          ${trade.priceNow.toFixed(0)}
+                        </td>
+                        <td className="px-3 py-2.5 text-right">
+                          <ReturnBadge pct={trade.returnPct} />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
         </main>
       </div>
 
       {/* Footer */}
       <footer className="h-7 border-t border-border bg-background flex items-center px-4 shrink-0">
-        <div className="flex items-center gap-4 font-mono text-[9px] text-muted-foreground/35 tracking-wide w-full">
-          <span className="text-primary/40 font-bold tracking-[0.12em]">INSIDER INSIGHTS</span>
-          <span className="text-muted-foreground/20">·</span>
+        <div className="flex items-center gap-4 font-mono text-[9px] text-muted-foreground/80 tracking-wide w-full">
+          <span className="text-primary font-bold tracking-[0.12em]">INSIDER INSIGHTS</span>
+          <span className="text-muted-foreground/50">·</span>
           <span>EDGAR (Form 4) · STOCK Act Disclosures · Congress.gov</span>
-          <span className="text-muted-foreground/20">·</span>
+          <span className="text-muted-foreground/50">·</span>
           <span>Mock data for demonstration only. Not investment advice.</span>
           <span className="ml-auto">v0.1.0-demo</span>
         </div>
