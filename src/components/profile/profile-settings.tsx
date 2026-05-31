@@ -3,6 +3,8 @@
 import { useRef, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useTheme } from "next-themes"
+import { Sun, Moon } from "lucide-react"
 import { authClient } from "@/lib/auth-client"
 import { cn } from "@/lib/utils"
 import InsiderInsightsLogo from "@/components/logo"
@@ -10,8 +12,8 @@ import InsiderInsightsLogo from "@/components/logo"
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="border border-border">
-      <div className="px-5 py-3 border-b border-border bg-card">
-        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+      <div className="px-5 py-4 border-b border-border bg-card">
+        <span className="font-mono text-[13px] uppercase tracking-[0.18em] text-muted-foreground">
           {title}
         </span>
       </div>
@@ -69,6 +71,7 @@ export function ProfileSettings() {
   const router = useRouter()
   const { data: session, isPending } = authClient.useSession()
   const user = session?.user
+  const { resolvedTheme, setTheme } = useTheme()
 
   // Avatar
   const fileRef = useRef<HTMLInputElement>(null)
@@ -190,6 +193,13 @@ export function ProfileSettings() {
         <div className="absolute left-1/2 -translate-x-1/2 font-mono text-[13px] uppercase tracking-[0.2em] text-foreground">
           Profile
         </div>
+        <button
+          onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+          className="ml-auto flex items-center justify-center w-7 h-7 text-muted-foreground hover:text-foreground transition-colors duration-100"
+          aria-label="Toggle theme"
+        >
+          {resolvedTheme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
+        </button>
       </nav>
 
       {/* Body */}

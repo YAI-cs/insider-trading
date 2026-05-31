@@ -105,8 +105,8 @@ export function TradeTable({
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100%", overflow: "hidden" }}>
-      <div className="px-4 py-2 border-b border-border flex items-center justify-between shrink-0">
-        <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
+      <div className="px-4 py-4 border-b border-border flex items-center justify-between shrink-0">
+        <span className="font-mono text-[13px] uppercase tracking-[0.15em] text-muted-foreground">
           Disclosures
         </span>
         <span className="font-mono text-[11px] text-muted-foreground">

@@ -2,6 +2,8 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { useTheme } from "next-themes"
+import { Sun, Moon } from "lucide-react"
 import {
   insiders,
   trades,
@@ -128,6 +130,7 @@ export function InsiderProfile({ id }: { id: string }) {
   const insider = insiders.find((i) => i.id === id)
   const [sortKey, setSortKey] = useState<SortKey>("date")
   const [sortDir, setSortDir] = useState<SortDir>("desc")
+  const { resolvedTheme, setTheme } = useTheme()
 
   if (!insider) {
     return (
@@ -210,17 +213,27 @@ export function InsiderProfile({ id }: { id: string }) {
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-background text-foreground font-mono">
       {/* Top nav */}
-      <nav aria-label="Page navigation" className="h-10 border-b border-border flex items-center px-4 gap-4 shrink-0">
-        <Link
-          href="/"
-          className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5"
+      <nav aria-label="Page navigation" className="h-20 border-b border-border relative flex items-center px-6 shrink-0">
+        <div className="flex items-center gap-4">
+          <InsiderInsightsLogo size={0.95} className="text-primary" />
+          <div className="h-5 w-px bg-border" />
+          <Link
+            href="/"
+            className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5"
+          >
+            <span className="text-[12px]">←</span> Dashboard
+          </Link>
+        </div>
+        <div className="absolute left-1/2 -translate-x-1/2 font-mono text-[13px] uppercase tracking-[0.2em] text-foreground">
+          {insider.name}
+        </div>
+        <button
+          onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+          className="ml-auto flex items-center justify-center w-7 h-7 text-muted-foreground hover:text-foreground transition-colors duration-100"
+          aria-label="Toggle theme"
         >
-          <span className="text-[12px]">←</span> Dashboard
-        </Link>
-        <span className="text-border">·</span>
-        <InsiderInsightsLogo size={0.52} className="text-primary/80" />
-        <span className="text-border ml-auto">·</span>
-        <span className="font-mono text-[11px] text-muted-foreground/70">Profile</span>
+          {resolvedTheme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
+        </button>
       </nav>
 
       <div className="flex-1 overflow-hidden flex flex-col min-h-0">
@@ -306,8 +319,8 @@ export function InsiderProfile({ id }: { id: string }) {
             style={{ width: "22%", minWidth: 200, maxWidth: 280 }}
           >
             {/* Stats */}
-            <div className="px-4 py-2.5 border-b border-border shrink-0">
-              <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
+            <div className="px-4 py-4 border-b border-border shrink-0">
+              <span className="font-mono text-[13px] uppercase tracking-[0.15em] text-muted-foreground">
                 Overview
               </span>
             </div>
@@ -346,8 +359,8 @@ export function InsiderProfile({ id }: { id: string }) {
             {/* Related events */}
             {relevantEvents.length > 0 && (
               <>
-                <div className="px-4 py-2.5 border-b border-border shrink-0">
-                  <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
+                <div className="px-4 py-4 border-b border-border shrink-0">
+                  <span className="font-mono text-[13px] uppercase tracking-[0.15em] text-muted-foreground">
                     Related Events
                   </span>
                 </div>
@@ -380,8 +393,8 @@ export function InsiderProfile({ id }: { id: string }) {
           <div className="flex-1 flex flex-col overflow-hidden min-w-0">
             {/* News feed — prominent */}
             <section aria-label="News feed" className="flex flex-col border-b border-border" style={{ height: "44%" }}>
-              <div className="px-4 py-2.5 border-b border-border flex items-center justify-between shrink-0">
-                <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
+              <div className="px-4 py-4 border-b border-border flex items-center justify-between shrink-0">
+                <span className="font-mono text-[13px] uppercase tracking-[0.15em] text-muted-foreground">
                   News Feed
                 </span>
                 <span className="font-mono text-[11px] text-muted-foreground/70">
@@ -420,8 +433,8 @@ export function InsiderProfile({ id }: { id: string }) {
 
             {/* Trade history */}
             <section aria-label="Trade history" className="flex-1 flex flex-col overflow-hidden min-w-0">
-              <div className="px-4 py-2.5 border-b border-border flex items-center justify-between shrink-0">
-                <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
+              <div className="px-4 py-4 border-b border-border flex items-center justify-between shrink-0">
+                <span className="font-mono text-[13px] uppercase tracking-[0.15em] text-muted-foreground">
                   Trade History
                 </span>
                 <span className="font-mono text-[11px] text-muted-foreground/70">

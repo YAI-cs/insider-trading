@@ -79,8 +79,8 @@ export function TradeTimeline({ trades, events, insiders, selectedInsiderId }: P
       style={{ height: "100%" }}
     >
       {/* Header row */}
-      <div className="absolute top-0 left-0 right-0 h-8 flex items-center justify-between px-4 z-10">
-        <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
+      <div className="absolute top-0 left-0 right-0 h-14 flex items-center justify-between px-4 z-10 border-b border-border">
+        <span className="font-mono text-[13px] uppercase tracking-[0.15em] text-muted-foreground">
           Trade vs. Stock Delta — Timeline
         </span>
         <div className="flex items-center gap-4 font-mono text-[11px] font-semibold tracking-wide">
