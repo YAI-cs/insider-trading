@@ -44,7 +44,7 @@ function LagBadge({ lag }: { lag: number }) {
   const color =
     lag > 30 ? "text-chart-2" : lag > 10 ? "text-primary" : "text-chart-1"
   return (
-    <span className={cn("font-mono tabular-nums text-[11px]", color)}>
+    <span className={cn("font-mono tabular-nums text-[12px]", color)}>
       {lag}d
     </span>
   )
@@ -53,7 +53,7 @@ function LagBadge({ lag }: { lag: number }) {
 function ReturnBadge({ pct }: { pct: number }) {
   const pos = pct >= 0
   return (
-    <span className={cn("font-mono tabular-nums font-semibold text-[11px]", pos ? "text-chart-1" : "text-chart-2")}>
+    <span className={cn("font-mono tabular-nums font-semibold text-[12px]", pos ? "text-chart-1" : "text-chart-2")}>
       {pos ? "+" : ""}{pct.toFixed(1)}%
     </span>
   )
@@ -64,11 +64,11 @@ function TypeBadge({ type }: { type: TradeType }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-mono font-bold tracking-wide",
+        "inline-flex items-center gap-1 px-1.5 py-0.5 text-[11px] font-mono font-bold tracking-wide",
         isUp ? "text-chart-1 bg-chart-1/10" : "text-chart-2 bg-chart-2/10"
       )}
     >
-      <span className="text-[9px]">{MARK_SYMBOLS[type]}</span>
+      <span className="text-[10px]">{MARK_SYMBOLS[type]}</span>
       {type}
     </span>
   )
@@ -106,10 +106,10 @@ export function TradeTable({
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100%", overflow: "hidden" }}>
       <div className="px-4 py-2 border-b border-border flex items-center justify-between shrink-0">
-        <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+        <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
           Disclosures
         </span>
-        <span className="font-mono text-[10px] text-muted-foreground">
+        <span className="font-mono text-[11px] text-muted-foreground">
           {sorted.length} records
           {selectedInsiderId && (
             <span className="text-primary ml-2">filtered</span>
@@ -125,7 +125,7 @@ export function TradeTable({
                 <th
                   key={col.key}
                   className={cn(
-                    "px-3 py-2 font-mono text-[9px] uppercase tracking-[0.12em] text-muted-foreground cursor-pointer select-none whitespace-nowrap",
+                    "px-3 py-2 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground cursor-pointer select-none whitespace-nowrap",
                     "hover:text-foreground transition-colors duration-100",
                     col.align === "right" ? "text-right" : "text-left"
                   )}
@@ -154,7 +154,7 @@ export function TradeTable({
                     idx % 2 === 0 ? "bg-background" : "bg-card"
                   )}
                 >
-                  <td className="px-3 py-2 font-mono text-[11px] tabular-nums text-foreground/70 whitespace-nowrap">
+                  <td className="px-3 py-2 font-mono text-[12px] tabular-nums text-foreground/70 whitespace-nowrap">
                     {formatDate(trade.date)}
                   </td>
                   <td className="px-3 py-2">
@@ -163,27 +163,27 @@ export function TradeTable({
                         className="w-1.5 h-1.5 rounded-full shrink-0"
                         style={{ backgroundColor: insiderColor }}
                       />
-                      <span className="font-mono text-[11px] text-foreground whitespace-nowrap">
+                      <span className="font-mono text-[12px] text-foreground whitespace-nowrap">
                         {insider?.name ?? trade.insiderId}
                       </span>
                     </div>
                   </td>
-                  <td className="px-3 py-2 font-mono text-[12px] font-bold text-foreground">
+                  <td className="px-3 py-2 font-mono text-[13px] font-bold text-foreground">
                     {trade.ticker}
                   </td>
                   <td className="px-3 py-2">
                     <TypeBadge type={trade.type} />
                   </td>
-                  <td className="px-3 py-2 font-mono text-[11px] tabular-nums text-right text-foreground/80">
+                  <td className="px-3 py-2 font-mono text-[12px] tabular-nums text-right text-foreground/80">
                     {formatNotional(trade.notional)}
                   </td>
                   <td className="px-3 py-2 text-right">
                     <LagBadge lag={trade.disclosureLag} />
                   </td>
-                  <td className="px-3 py-2 font-mono text-[11px] tabular-nums text-right text-foreground/60">
+                  <td className="px-3 py-2 font-mono text-[12px] tabular-nums text-right text-foreground/60">
                     ${trade.priceAtTrade.toFixed(0)}
                   </td>
-                  <td className="px-3 py-2 font-mono text-[11px] tabular-nums text-right text-foreground/80">
+                  <td className="px-3 py-2 font-mono text-[12px] tabular-nums text-right text-foreground/80">
                     ${trade.priceNow.toFixed(0)}
                   </td>
                   <td className="px-3 py-2 text-right">

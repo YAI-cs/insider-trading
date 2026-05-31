@@ -80,14 +80,26 @@ export function TradeTimeline({ trades, events, insiders, selectedInsiderId }: P
     >
       {/* Header row */}
       <div className="absolute top-0 left-0 right-0 h-8 flex items-center justify-between px-4 z-10">
-        <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+        <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
           Trade vs. Stock Delta — Timeline
         </span>
-        <div className="flex items-center gap-3 font-mono text-[9px] text-muted-foreground/70">
-          <span>▲ BUY</span>
-          <span>▽ SELL</span>
-          <span>◆ CALL</span>
-          <span>◇ PUT</span>
+        <div className="flex items-center gap-4 font-mono text-[11px] font-semibold tracking-wide">
+          <span className="flex items-center gap-1">
+            <span className="text-chart-1">▲</span>
+            <span className="text-chart-1/80">BUY</span>
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="text-chart-2">▽</span>
+            <span className="text-chart-2/80">SELL</span>
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="text-primary">◆</span>
+            <span className="text-primary/80">CALL</span>
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="text-chart-5">◇</span>
+            <span className="text-chart-5/80">PUT</span>
+          </span>
         </div>
       </div>
 
@@ -98,7 +110,7 @@ export function TradeTimeline({ trades, events, insiders, selectedInsiderId }: P
           {Y_TICKS.map((pct) => (
             <div
               key={pct}
-              className="absolute right-1.5 -translate-y-1/2 font-mono text-[9px] text-muted-foreground/70 tabular-nums leading-none"
+              className="absolute right-1.5 -translate-y-1/2 font-mono text-[10px] text-muted-foreground/70 tabular-nums leading-none"
               style={{ bottom: `${yPct(pct)}%` }}
             >
               {pct === 0 ? "0" : `${pct}`}
@@ -106,7 +118,7 @@ export function TradeTimeline({ trades, events, insiders, selectedInsiderId }: P
           ))}
           {/* Y axis label */}
           <div
-            className="absolute font-mono text-[8px] text-muted-foreground/70 tracking-wide"
+            className="absolute font-mono text-[9px] text-muted-foreground/70 tracking-wide"
             style={{
               left: 2,
               top: "50%",
@@ -190,7 +202,7 @@ export function TradeTimeline({ trades, events, insiders, selectedInsiderId }: P
         {X_LABELS.map(({ date, label }) => (
           <div
             key={date}
-            className="absolute top-1 -translate-x-1/2 font-mono text-[9px] text-muted-foreground/70 whitespace-nowrap"
+            className="absolute top-1 -translate-x-1/2 font-mono text-[10px] text-muted-foreground/70 whitespace-nowrap"
             style={{ left: `${xPct(date)}%` }}
           >
             {label}
@@ -284,7 +296,7 @@ function EventStrip({ events }: { events: MarketEvent[] }) {
                 className="absolute z-30 pointer-events-none"
                 style={{ top: -36, left: "50%", transform: "translateX(-50%)" }}
               >
-                <div className="bg-card border border-border/80 px-2 py-1.5 font-mono text-[9px] text-foreground/80 whitespace-nowrap shadow-xl">
+                <div className="bg-card border border-border/80 px-2 py-1.5 font-mono text-[10px] text-foreground/80 whitespace-nowrap shadow-xl">
                   <span className="text-muted-foreground/50 mr-1.5">{ev.date}</span>
                   {ev.label}
                 </div>
@@ -321,13 +333,13 @@ function TradeTooltip({
       className="fixed z-50 pointer-events-none"
       style={{ left: clientX + 14, top: clientY - 90 }}
     >
-      <div className="bg-card border border-border shadow-xl p-3 font-mono text-[11px] min-w-[224px]">
+      <div className="bg-card border border-border shadow-xl p-3 font-mono text-[12px] min-w-[224px]">
         <div className="flex items-center justify-between mb-2 pb-2 border-b border-border">
           <span className="font-bold text-foreground tracking-wide">{trade.ticker}</span>
-          <span className="text-muted-foreground/60 text-[10px]">{trade.company.split(" ").slice(0, 2).join(" ")}</span>
+          <span className="text-muted-foreground/60 text-[11px]">{trade.company.split(" ").slice(0, 2).join(" ")}</span>
           <span
             className={cn(
-              "px-1.5 py-0.5 text-[9px] font-bold tracking-wider",
+              "px-1.5 py-0.5 text-[10px] font-bold tracking-wider",
               trade.type === "BUY" || trade.type === "CALL"
                 ? "bg-chart-1/15 text-chart-1"
                 : "bg-chart-2/15 text-chart-2"
@@ -336,7 +348,7 @@ function TradeTooltip({
             {MARK_SYMBOLS[trade.type]} {trade.type}
           </span>
         </div>
-        <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-[10px]">
+        <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-[11px]">
           <span className="text-muted-foreground">Insider</span>
           <span className="text-foreground">{insider.name}</span>
           <span className="text-muted-foreground">Trade date</span>

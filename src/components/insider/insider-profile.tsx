@@ -16,6 +16,7 @@ import {
   type InsiderNewsItem,
 } from "@/lib/mock-data"
 import { cn } from "@/lib/utils"
+import InsiderInsightsLogo from "@/components/logo"
 
 const PARTY_COLORS: Record<string, string> = {
   R: "text-red-400 bg-red-400/10 border-red-400/20",
@@ -57,11 +58,11 @@ function TypeBadge({ type }: { type: TradeType }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-mono font-bold tracking-wide",
+        "inline-flex items-center gap-1 px-1.5 py-0.5 text-[11px] font-mono font-bold tracking-wide",
         isUp ? "text-chart-1 bg-chart-1/10" : "text-chart-2 bg-chart-2/10"
       )}
     >
-      <span className="text-[9px]">{MARK_SYMBOLS[type]}</span>
+      <span className="text-[10px]">{MARK_SYMBOLS[type]}</span>
       {type}
     </span>
   )
@@ -69,13 +70,13 @@ function TypeBadge({ type }: { type: TradeType }) {
 
 function LagBadge({ lag }: { lag: number }) {
   const color = lag > 30 ? "text-chart-2" : lag > 10 ? "text-primary" : "text-chart-1"
-  return <span className={cn("font-mono tabular-nums text-[11px]", color)}>{lag}d</span>
+  return <span className={cn("font-mono tabular-nums text-[12px]", color)}>{lag}d</span>
 }
 
 function ReturnBadge({ pct }: { pct: number }) {
   const pos = pct >= 0
   return (
-    <span className={cn("font-mono tabular-nums font-semibold text-[11px]", pos ? "text-chart-1" : "text-chart-2")}>
+    <span className={cn("font-mono tabular-nums font-semibold text-[12px]", pos ? "text-chart-1" : "text-chart-2")}>
       {pos ? "+" : ""}{pct.toFixed(1)}%
     </span>
   )
@@ -212,16 +213,14 @@ export function InsiderProfile({ id }: { id: string }) {
       <nav aria-label="Page navigation" className="h-10 border-b border-border flex items-center px-4 gap-4 shrink-0">
         <Link
           href="/"
-          className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5"
+          className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5"
         >
-          <span className="text-[11px]">←</span> Dashboard
+          <span className="text-[12px]">←</span> Dashboard
         </Link>
         <span className="text-border">·</span>
-        <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground/80">
-          Insider Insights
-        </span>
+        <InsiderInsightsLogo size={0.52} className="text-primary/80" />
         <span className="text-border ml-auto">·</span>
-        <span className="font-mono text-[10px] text-muted-foreground/70">Profile</span>
+        <span className="font-mono text-[11px] text-muted-foreground/70">Profile</span>
       </nav>
 
       <div className="flex-1 overflow-hidden flex flex-col min-h-0">
@@ -244,26 +243,26 @@ export function InsiderProfile({ id }: { id: string }) {
                 </h1>
                 <span
                   className={cn(
-                    "px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider border font-mono",
+                    "px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider border font-mono",
                     PARTY_COLORS[insider.party]
                   )}
                 >
                   {PARTY_LABEL[insider.party]}
                 </span>
               </div>
-              <div className="mt-1 font-mono text-[11px] text-muted-foreground">
+              <div className="mt-1 font-mono text-[12px] text-muted-foreground">
                 {insider.title}
                 <span className="text-border mx-2">·</span>
                 {insider.affiliation}
               </div>
-              <div className="mt-1 font-mono text-[10px] text-muted-foreground/75">
+              <div className="mt-1 font-mono text-[11px] text-muted-foreground/75">
                 Last trade: {formatDate(insider.lastTradeDate)}
               </div>
             </div>
 
             {/* Sparkline */}
             <div className="w-72 shrink-0 hidden lg:block">
-              <div className="font-mono text-[9px] text-muted-foreground/70 uppercase tracking-wide mb-1.5">
+              <div className="font-mono text-[10px] text-muted-foreground/70 uppercase tracking-wide mb-1.5">
                 Trade returns
               </div>
               <TradeSparkline trades={insiderTrades} color={color} />
@@ -279,7 +278,7 @@ export function InsiderProfile({ id }: { id: string }) {
               { label: "Win Rate", value: `${winRate}%`, accent: true, positive: winRate >= 50 },
             ].map(({ label, value, accent, positive }) => (
               <div key={label} className="bg-card border border-border px-3 py-2.5">
-                <div className="font-mono text-[9px] text-muted-foreground/75 uppercase tracking-wide mb-1">
+                <div className="font-mono text-[10px] text-muted-foreground/75 uppercase tracking-wide mb-1">
                   {label}
                 </div>
                 <div
@@ -308,13 +307,13 @@ export function InsiderProfile({ id }: { id: string }) {
           >
             {/* Stats */}
             <div className="px-4 py-2.5 border-b border-border shrink-0">
-              <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+              <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
                 Overview
               </span>
             </div>
             <div className="px-4 py-4 border-b border-border shrink-0 flex flex-col gap-4">
               <div>
-                <div className="font-mono text-[9px] text-muted-foreground/70 uppercase tracking-wide mb-1">
+                <div className="font-mono text-[10px] text-muted-foreground/70 uppercase tracking-wide mb-1">
                   Avg Disclosure Lag
                 </div>
                 <div
@@ -327,7 +326,7 @@ export function InsiderProfile({ id }: { id: string }) {
                 </div>
               </div>
               <div>
-                <div className="font-mono text-[9px] text-muted-foreground/70 uppercase tracking-wide mb-1">
+                <div className="font-mono text-[10px] text-muted-foreground/70 uppercase tracking-wide mb-1">
                   Tickers Traded
                 </div>
                 <div className="font-mono text-sm font-bold text-foreground leading-snug">
@@ -335,7 +334,7 @@ export function InsiderProfile({ id }: { id: string }) {
                 </div>
               </div>
               <div>
-                <div className="font-mono text-[9px] text-muted-foreground/70 uppercase tracking-wide mb-1">
+                <div className="font-mono text-[10px] text-muted-foreground/70 uppercase tracking-wide mb-1">
                   Largest Trade
                 </div>
                 <div className="font-mono text-lg font-bold text-foreground">
@@ -348,7 +347,7 @@ export function InsiderProfile({ id }: { id: string }) {
             {relevantEvents.length > 0 && (
               <>
                 <div className="px-4 py-2.5 border-b border-border shrink-0">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+                  <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
                     Related Events
                   </span>
                 </div>
@@ -363,10 +362,10 @@ export function InsiderProfile({ id }: { id: string }) {
                         style={{ backgroundColor: color, opacity: 0.6 }}
                       />
                       <div>
-                        <p className="font-mono text-[10px] text-foreground/70 leading-snug">
+                        <p className="font-mono text-[11px] text-foreground/70 leading-snug">
                           {ev.label}
                         </p>
-                        <p className="font-mono text-[9px] text-muted-foreground/70 mt-0.5">
+                        <p className="font-mono text-[10px] text-muted-foreground/70 mt-0.5">
                           {formatDate(ev.date)}
                         </p>
                       </div>
@@ -382,10 +381,10 @@ export function InsiderProfile({ id }: { id: string }) {
             {/* News feed — prominent */}
             <section aria-label="News feed" className="flex flex-col border-b border-border" style={{ height: "44%" }}>
               <div className="px-4 py-2.5 border-b border-border flex items-center justify-between shrink-0">
-                <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+                <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
                   News Feed
                 </span>
-                <span className="font-mono text-[10px] text-muted-foreground/70">
+                <span className="font-mono text-[11px] text-muted-foreground/70">
                   {news.length} items
                 </span>
               </div>
@@ -398,20 +397,20 @@ export function InsiderProfile({ id }: { id: string }) {
                     <div className="flex items-center gap-1.5 mb-1.5">
                       <span
                         className={cn(
-                          "px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider border font-mono",
+                          "px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider border font-mono",
                           NEWS_CAT_COLORS[item.category]
                         )}
                       >
                         {NEWS_CAT_LABELS[item.category]}
                       </span>
-                      <span className="font-mono text-[9px] text-muted-foreground/70">
+                      <span className="font-mono text-[10px] text-muted-foreground/70">
                         {formatDate(item.date)}
                       </span>
                     </div>
-                    <p className="font-mono text-[11px] text-foreground/85 leading-relaxed">
+                    <p className="font-mono text-[12px] text-foreground/85 leading-relaxed">
                       {item.headline}
                     </p>
-                    <p className="font-mono text-[9px] text-muted-foreground/70 mt-1">
+                    <p className="font-mono text-[10px] text-muted-foreground/70 mt-1">
                       {item.source}
                     </p>
                   </div>
@@ -422,10 +421,10 @@ export function InsiderProfile({ id }: { id: string }) {
             {/* Trade history */}
             <section aria-label="Trade history" className="flex-1 flex flex-col overflow-hidden min-w-0">
               <div className="px-4 py-2.5 border-b border-border flex items-center justify-between shrink-0">
-                <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+                <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
                   Trade History
                 </span>
-                <span className="font-mono text-[10px] text-muted-foreground/70">
+                <span className="font-mono text-[11px] text-muted-foreground/70">
                   {sortedTrades.length} disclosures
                 </span>
               </div>
@@ -437,7 +436,7 @@ export function InsiderProfile({ id }: { id: string }) {
                         <th
                           key={col.key}
                           className={cn(
-                            "px-3 py-2 font-mono text-[9px] uppercase tracking-[0.12em] text-muted-foreground/80 cursor-pointer select-none whitespace-nowrap",
+                            "px-3 py-2 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground/80 cursor-pointer select-none whitespace-nowrap",
                             "hover:text-muted-foreground transition-colors duration-100",
                             col.align === "right" ? "text-right" : "text-left"
                           )}
@@ -458,15 +457,15 @@ export function InsiderProfile({ id }: { id: string }) {
                           idx % 2 === 0 ? "bg-background" : "bg-card"
                         )}
                       >
-                        <td className="px-3 py-2.5 font-mono text-[11px] tabular-nums text-foreground/70 whitespace-nowrap">
+                        <td className="px-3 py-2.5 font-mono text-[12px] tabular-nums text-foreground/70 whitespace-nowrap">
                           {formatDate(trade.date)}
                         </td>
                         <td className="px-3 py-2.5">
                           <div className="flex items-center gap-1.5">
-                            <span className="font-mono text-[12px] font-bold text-foreground">
+                            <span className="font-mono text-[13px] font-bold text-foreground">
                               {trade.ticker}
                             </span>
-                            <span className="font-mono text-[10px] text-muted-foreground/75 hidden xl:inline">
+                            <span className="font-mono text-[11px] text-muted-foreground/75 hidden xl:inline">
                               {trade.company.split(" ").slice(0, 2).join(" ")}
                             </span>
                           </div>
@@ -474,16 +473,16 @@ export function InsiderProfile({ id }: { id: string }) {
                         <td className="px-3 py-2.5">
                           <TypeBadge type={trade.type} />
                         </td>
-                        <td className="px-3 py-2.5 font-mono text-[11px] tabular-nums text-right text-foreground/80">
+                        <td className="px-3 py-2.5 font-mono text-[12px] tabular-nums text-right text-foreground/80">
                           {formatNotional(trade.notional)}
                         </td>
                         <td className="px-3 py-2.5 text-right">
                           <LagBadge lag={trade.disclosureLag} />
                         </td>
-                        <td className="px-3 py-2.5 font-mono text-[11px] tabular-nums text-right text-foreground/60">
+                        <td className="px-3 py-2.5 font-mono text-[12px] tabular-nums text-right text-foreground/60">
                           ${trade.priceAtTrade.toFixed(0)}
                         </td>
-                        <td className="px-3 py-2.5 font-mono text-[11px] tabular-nums text-right text-foreground/80">
+                        <td className="px-3 py-2.5 font-mono text-[12px] tabular-nums text-right text-foreground/80">
                           ${trade.priceNow.toFixed(0)}
                         </td>
                         <td className="px-3 py-2.5 text-right">
@@ -501,13 +500,11 @@ export function InsiderProfile({ id }: { id: string }) {
 
       {/* Footer */}
       <footer className="h-7 border-t border-border bg-background flex items-center px-4 shrink-0">
-        <div className="flex items-center gap-4 font-mono text-[9px] text-muted-foreground/80 tracking-wide w-full">
+        <div className="flex items-center gap-4 font-mono text-[10px] text-muted-foreground/80 tracking-wide w-full">
           <span className="text-primary font-bold tracking-[0.12em]">INSIDER INSIGHTS</span>
           <span className="text-muted-foreground/50">·</span>
-          <span>EDGAR (Form 4) · STOCK Act Disclosures · Congress.gov</span>
-          <span className="text-muted-foreground/50">·</span>
-          <span>Mock data for demonstration only. Not investment advice.</span>
-          <span className="ml-auto">v0.1.0-demo</span>
+          <span className="text-muted-foreground/60">Mock data — not investment advice</span>
+          <span className="ml-auto text-muted-foreground/40">v0.1.0-demo</span>
         </div>
       </footer>
     </div>

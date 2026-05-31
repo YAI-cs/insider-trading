@@ -22,10 +22,10 @@ export function InsiderLeaderboard({ insiders, trades, selectedInsiderId, onSele
   return (
     <div className="flex flex-col flex-1 min-h-0 overflow-hidden bg-background">
       <div className="px-4 py-2.5 border-b border-border flex items-center justify-between">
-        <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+        <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
           Insiders
         </span>
-        <span className="font-mono text-[10px] text-muted-foreground">
+        <span className="font-mono text-[11px] text-muted-foreground">
           {insiders.length} tracked
         </span>
       </div>
@@ -83,12 +83,12 @@ export function InsiderLeaderboard({ insiders, trades, selectedInsiderId, onSele
                           {insider.name}
                         </span>
                         {party && (
-                          <span className="font-mono text-[9px] uppercase tracking-wider text-muted-foreground shrink-0">
+                          <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground shrink-0">
                             {party}
                           </span>
                         )}
                       </div>
-                      <div className="font-mono text-[10px] text-muted-foreground mt-0.5 truncate">
+                      <div className="font-mono text-[11px] text-muted-foreground mt-0.5 truncate">
                         {insider.title}
                       </div>
                     </div>
@@ -104,7 +104,7 @@ export function InsiderLeaderboard({ insiders, trades, selectedInsiderId, onSele
                       {insider.estimatedEdge >= 0 ? "+" : ""}
                       {insider.estimatedEdge.toFixed(1)}%
                     </div>
-                    <div className="font-mono text-[9px] text-muted-foreground/80 mt-0.5 uppercase tracking-wide">
+                    <div className="font-mono text-[10px] text-muted-foreground/80 mt-0.5 uppercase tracking-wide">
                       avg edge
                     </div>
                   </div>
@@ -113,13 +113,13 @@ export function InsiderLeaderboard({ insiders, trades, selectedInsiderId, onSele
                 {/* Bottom row: full-width, trades/date on left, profile link on right */}
                 <div className="flex items-center justify-between mt-2 pl-7">
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-[10px] text-muted-foreground">
+                    <span className="font-mono text-[11px] text-muted-foreground">
                       {insiderTrades.length} trades
                     </span>
                     {lastTrade && (
                       <>
-                        <span className="text-muted-foreground/50 text-[9px]">·</span>
-                        <span className="font-mono text-[10px] text-muted-foreground">
+                        <span className="text-muted-foreground/50 text-[10px]">·</span>
+                        <span className="font-mono text-[11px] text-muted-foreground">
                           Last {formatDate(lastTrade.date)}
                         </span>
                       </>
@@ -129,7 +129,7 @@ export function InsiderLeaderboard({ insiders, trades, selectedInsiderId, onSele
                   <Link
                     href={`/insiders/${insider.id}`}
                     className={cn(
-                      "pointer-events-auto font-mono text-[9px] uppercase tracking-wide shrink-0",
+                      "pointer-events-auto font-mono text-[10px] uppercase tracking-wide shrink-0",
                       "px-2 py-0.5 border border-border text-muted-foreground",
                       "opacity-0 group-hover:opacity-100 transition-opacity duration-100",
                       "hover:text-primary hover:border-primary/60"
@@ -145,7 +145,7 @@ export function InsiderLeaderboard({ insiders, trades, selectedInsiderId, onSele
       </div>
 
       <div className="px-4 py-2 border-t border-border">
-        <p className="font-mono text-[9px] text-muted-foreground/70 leading-relaxed">
+        <p className="font-mono text-[10px] text-muted-foreground/70 leading-relaxed">
           Edge = avg stock delta since disclosure date across all disclosed trades. Not investment advice.
         </p>
       </div>
