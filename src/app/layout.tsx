@@ -21,7 +21,7 @@ const oxanium = Oxanium({
 });
 
 export const metadata: Metadata = {
-  title: "Insider Insights — Trade Intelligence",
+  title: "Insider Insights",
   description: "Track disclosed trades by high-profile insiders. Follow the money.",
 };
 

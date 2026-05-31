@@ -24,8 +24,8 @@ export default function InsiderInsightsLogo({ size = 1, color = "currentColor", 
         <path d="M21 5 L30 5 L30 14"   stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         <path d="M5 21 L5 30 L14 30"   stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         <path d="M21 30 L30 30 L30 21" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <circle cx="17.5" cy="17.5" r="8" stroke={color} strokeWidth="0.8" strokeDasharray="2 2"/>
-        <circle cx="17.5" cy="17.5" r="3.5" fill={color}/>
+        <circle cx="17.5" cy="17.5" r="8" stroke="white" strokeWidth="0.8" strokeDasharray="2 2"/>
+        <circle cx="17.5" cy="17.5" r="3.5" fill="white"/>
       </svg>
 
       <div style={{ lineHeight: 1.1, fontFamily: "var(--font-oxanium)" }}>

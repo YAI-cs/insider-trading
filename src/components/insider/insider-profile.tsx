@@ -215,7 +215,9 @@ export function InsiderProfile({ id }: { id: string }) {
       {/* Top nav */}
       <nav aria-label="Page navigation" className="h-20 border-b border-border relative flex items-center px-6 shrink-0">
         <div className="flex items-center gap-4">
-          <InsiderInsightsLogo size={0.95} className="text-primary" />
+          <Link href="/" className="hover:opacity-80 transition-opacity duration-100">
+            <InsiderInsightsLogo size={0.95} className="text-primary" />
+          </Link>
           <div className="h-5 w-px bg-border" />
           <Link
             href="/"
@@ -224,7 +226,7 @@ export function InsiderProfile({ id }: { id: string }) {
             <span className="text-[12px]">←</span> Dashboard
           </Link>
         </div>
-        <div className="absolute left-1/2 -translate-x-1/2 font-mono text-[13px] uppercase tracking-[0.2em] text-foreground">
+        <div className="absolute left-1/2 -translate-x-1/2 font-mono text-[18px] uppercase tracking-[0.2em] text-foreground">
           {insider.name}
         </div>
         <button

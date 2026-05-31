@@ -69,12 +69,16 @@ export function TopBar({ typeFilter, onTypeFilterChange }: Props) {
   }
 
   return (
-    <header className="h-20 border-b border-border bg-background flex items-center px-6 gap-7 shrink-0">
-      <div className="flex items-center">
+    <header className="h-20 border-b border-border bg-background relative flex items-center px-6 gap-7 shrink-0">
+      <Link href="/" className="flex items-center hover:opacity-80 transition-opacity duration-100">
         <InsiderInsightsLogo size={0.95} className="text-primary" />
-      </div>
+      </Link>
 
       <div className="h-5 w-px bg-border" />
+
+      <div className="absolute left-1/2 -translate-x-1/2 font-mono text-[18px] uppercase tracking-[0.2em] text-foreground pointer-events-none">
+        Dashboard
+      </div>
 
       <div className="flex items-center gap-2">
         {TYPES.map((t) => {
